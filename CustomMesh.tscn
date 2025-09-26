@@ -1,0 +1,139 @@
+[gd_scene load_steps=18 format=3 uid="uid://qkqb2wr6ccr5"]
+
+[ext_resource type="PackedScene" uid="uid://cv4sc88cvte5l" path="res://assets/archigram.glb" id="1_w3jhm"]
+[ext_resource type="PackedScene" uid="uid://bntmlqnmldvhf" path="res://assets/calabaza.glb" id="2_on44r"]
+[ext_resource type="PackedScene" uid="uid://xgjjkidejsvp" path="res://assets/monstruo.glb" id="3_1akld"]
+[ext_resource type="PackedScene" uid="uid://c4gxna52lux4w" path="res://assets/nakagin.glb" id="4_rhla1"]
+[ext_resource type="PackedScene" uid="uid://cr03otd0anevj" path="res://assets/paquetes.glb" id="5_xcakl"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="6_qdpxd"]
+[ext_resource type="PackedScene" uid="uid://c27b1b523leol" path="res://assets/grabfigur.glb" id="6_rhla1"]
+[ext_resource type="Texture2D" uid="uid://c63mg5p3k7xey" path="res://assets/dark.png" id="7_1akld"]
+[ext_resource type="VoxelGIData" uid="uid://bdk1hoom8jnxp" path="res://assets/CustomMesh.VoxelGI_data.res" id="7_on44r"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_w3jhm"]
+
+[sub_resource type="Sky" id="Sky_2koat"]
+sky_material = SubResource("PhysicalSkyMaterial_w3jhm")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_rbbx3"]
+background_mode = 2
+background_energy_multiplier = 2.0
+sky = SubResource("Sky_2koat")
+tonemap_mode = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rhla1"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcakl"]
+noise = SubResource("FastNoiseLite_rhla1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdpxd"]
+albedo_texture = ExtResource("7_1akld")
+metallic = 0.6
+normal_scale = 0.49
+normal_texture = SubResource("NoiseTexture2D_xcakl")
+uv1_scale = Vector3(60, 60, 60)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4b2r1"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w3jhm"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rbbx3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8231364, -0.53393674, 0.19328238, 0, 0.34037954, 0.9402881, -0.56784374, 0.7739854, -0.2801788, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Mallas" type="Node3D" parent="."]
+transform = Transform3D(39.965, 0, 0, 0, 39.965, 0, 0, 0, 39.965, -8.792034, 12.828721, 0)
+
+[node name="archigram" parent="Mallas" instance=ExtResource("1_w3jhm")]
+transform = Transform3D(0.5847029, 0, 0.81124765, 0, 1.0000001, 0, -0.81124765, 0, 0.5847029, -0.9999999, -0.18906483, 0.4766436)
+
+[node name="calabaza" parent="Mallas" instance=ExtResource("2_on44r")]
+transform = Transform3D(1.3127313, 0, -1.3292392, 0, 1.8681916, 0, 1.3292392, 0, 1.3127313, 1, 0.21004635, 0.48098785)
+
+[node name="monstruo" parent="Mallas" instance=ExtResource("3_1akld")]
+transform = Transform3D(1.8371593, 0, 0, 0, 1.8371593, 0, 0, 0, 1.8371593, -0.7607516, 0.2859649, -0.797186)
+
+[node name="nakagin" parent="Mallas" instance=ExtResource("4_rhla1")]
+transform = Transform3D(2.1159759, 0, 0, 0, 2.1159759, 0, 0, 0, 2.1159759, 1.4401038, 1.019108, 0)
+
+[node name="paquetes" parent="Mallas" instance=ExtResource("5_xcakl")]
+transform = Transform3D(1.3670285, 0, 0, 0, 1.3670285, 0, 0, 0, 1.3670285, 1.4256024, 0.15239668, -0.55451083)
+
+[node name="Sketchfab_Scene" parent="Mallas" instance=ExtResource("6_rhla1")]
+transform = Transform3D(0.6975784, 0, -0.636151, 0, 0.9440888, 0, 0.636151, 0, 0.6975784, 1.2021985, -0.55290854, -2.1794813)
+
+[node name="ProtoController" parent="." instance=ExtResource("6_qdpxd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25008857, 0, 8.465666)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(179.97032, 0, 0, 0, 2.2192948, 0, 0, 0, 197.03386, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qdpxd")
+mesh = SubResource("PlaneMesh_4b2r1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_w3jhm")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(3.8, 0, 0, 0, 4.3500004, 0, 0, 0, 4.3500004, -24.999428, 1.5318899, -3.9011128)
+transparency = 1.0
+cast_shadow = 0
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(0.6951904, 4.632324, 5.7474365)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(3.4382837, 0, 0, 0, 3.4382837, 0, 0, 0, 3.4382837, -0.047424316, 0.28066707, 0.6445153)
+operation = 2
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="."]
+transform = Transform3D(3.8, 0, 0, 0, 4.3500004, 0, 0, 0, 4.3500004, 33.603424, 1.5318899, -15.629861)
+transparency = 1.0
+cast_shadow = 0
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0225086, 2.586975, -1.5353086)
+size = Vector3(10.288193, 9.806274, 8.818054)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11703205, 6.13295, 8.450639)
+size = Vector3(6.1111107, 16.898224, 5.7282333)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9167767, 9.536475, 3.5282946)
+size = Vector3(9.981452, 11.207901, 5.7282333)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.995184, 10.656436, 0.6974838)
+size = Vector3(4.686921, 13.447823, 4.5237846)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7813063, 19.30286, 1.5812466)
+size = Vector3(1.994118, 6.7316017, 2.721662)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.135068, 11.904622, 7.349534)
+size = Vector3(4.777582, 15.511575, 3.2310748)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(0.81589544, 0, -0.57819945, 0, 1, 0, 0.57819945, 0, 0.81589544, 4.6032743, 5.1629806, 3.855729)
+size = Vector3(10.562016, 2.4609108, 11.947505)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5131836, 8.012545, 12.325317)
+size = Vector3(5.135149, 6.093357, 5.7282333)
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.179443, 46.467773, -4.9609833)
+size = Vector3(231.42139, 112.93555, 199.75076)
+data = ExtResource("7_on44r")
