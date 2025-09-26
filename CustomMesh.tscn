@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://qkqb2wr6ccr5"]
+[gd_scene load_steps=17 format=3 uid="uid://qkqb2wr6ccr5"]
 
 [ext_resource type="PackedScene" uid="uid://cv4sc88cvte5l" path="res://assets/archigram.glb" id="1_w3jhm"]
 [ext_resource type="PackedScene" uid="uid://bntmlqnmldvhf" path="res://assets/calabaza.glb" id="2_on44r"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c4gxna52lux4w" path="res://assets/nakagin.glb" id="4_rhla1"]
 [ext_resource type="PackedScene" uid="uid://cr03otd0anevj" path="res://assets/paquetes.glb" id="5_xcakl"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="6_qdpxd"]
-[ext_resource type="PackedScene" uid="uid://c27b1b523leol" path="res://assets/grabfigur.glb" id="6_rhla1"]
 [ext_resource type="Texture2D" uid="uid://c63mg5p3k7xey" path="res://assets/dark.png" id="7_1akld"]
 [ext_resource type="VoxelGIData" uid="uid://bdk1hoom8jnxp" path="res://assets/CustomMesh.VoxelGI_data.res" id="7_on44r"]
 
@@ -65,9 +64,6 @@ transform = Transform3D(2.1159759, 0, 0, 0, 2.1159759, 0, 0, 0, 2.1159759, 1.440
 
 [node name="paquetes" parent="Mallas" instance=ExtResource("5_xcakl")]
 transform = Transform3D(1.3670285, 0, 0, 0, 1.3670285, 0, 0, 0, 1.3670285, 1.4256024, 0.15239668, -0.55451083)
-
-[node name="Sketchfab_Scene" parent="Mallas" instance=ExtResource("6_rhla1")]
-transform = Transform3D(0.6975784, 0, -0.636151, 0, 0.9440888, 0, 0.636151, 0, 0.6975784, 1.2021985, -0.55290854, -2.1794813)
 
 [node name="ProtoController" parent="." instance=ExtResource("6_qdpxd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25008857, 0, 8.465666)
